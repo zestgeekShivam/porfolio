@@ -160,10 +160,10 @@ export default function Home() {
           gap={1.2}
         >
           <Text variant="h3">
-            <span className="font-semibold"> Hey, </span> I'm Shivam
+            <span className="font-semibold"> Hey, </span> I&apos;m Shivam
           </Text>
           <Text variant="h4" className="text-2xl">
-            I'm a Full Stack Developer
+            I&apos;m a Full Stack Developer
           </Text>
           <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
             Hire Me
