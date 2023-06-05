@@ -1,113 +1,213 @@
-import Image from 'next/image'
+"use client";
+import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Link from "next/link";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import Image from "next/image";
+import luffy from "../profile.png";
+import { keyframes } from "@mui/material/styles";
+
+const animation = keyframes`0%,
+100% {
+  border-radius: 30% 70% 70% 30% / 30% 52% 48% 60%;
+}
+
+10% {
+  border-radius: 50% 50% 20% 80% / 25% 80% 20% 55%;
+}
+
+20% {
+  border-radius: 67% 33% 47% 53% / 37% 20% 80% 63%;
+}
+
+30% {
+  border-radius: 39% 61% 47% 53% / 37% 40% 60% 63%;
+
+}
+
+40% {
+  border-radius: 39% 61% 82% 18% / 74% 40% 60% 26%;
+}
+
+50% {
+  border-radius: 100%;
+}
+
+60% {
+  border-radius: 50% 50% 53% 47% / 72% 69% 31% 28%;
+}
+
+70% {
+  border-radius: 50% 50% 53% 47% / 26% 22% 78% 44%;
+}
+
+80% {
+  border-radius: 50% 50% 53% 47% / 26% 69% 31% 44%;
+}
+
+90% {
+  border-radius: 20% 80% 20% 80% / 20% 80% 20% 40%;
+}`;
+
+const NavBar = styled(AppBar)(
+  () =>
+    `
+  background-color:white;
+  box-shadow:none;
+  color:#777777;
+  position:sticky;
+`
+);
+const NavWrapper = styled(Toolbar)(
+  () =>
+    `
+   display:flex;
+   align-items:center;
+   justify-content:space-between;
+`
+);
+const NavButton = styled(Link)(
+  () =>
+    `
+  cursor:pointer;
+  white-space:nowrap;
+  font-size: 13px ;
+  &:focus {
+    color:#010111;
+  }
+`
+);
+const SocialButton = styled(Link)(
+  () =>
+    `
+  cursor:pointer;
+  font-size: 13px ;
+  white-space:nowrap;
+  letter-spacing:4px;
+  &:focus {
+    color:#010111;
+  }
+`
+);
+
+const Text = styled(Typography)(
+  () => `
+  font-weight:300;
+  letter-spacing:5px;
+  white-space:nowrap;
+
+`
+);
+
+const OutlinedButton = styled(Button)(
+  () =>
+    ` 
+  border: 1px solid black;
+  color: black;
+  margin-right:1.27rem;
+  align-self: end;
+  &:hover {
+    border: 1px solid black;
+  }
+`
+);
+
+const ProfilePhoto = styled(Image)({
+  animation: `${animation} 30s infinite `,
+});
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Box>
+      <NavBar>
+        <NavWrapper>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "20px",
+              marginLeft: "40px",
+            }}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+            <NavButton href="#">WELCOME</NavButton>
+            <NavButton href="#"> ABOUT ME </NavButton>
+            <NavButton href="#"> CONTACT ME </NavButton>
+          </Box>
+          <Box>
+            <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
+              Hire Me
+            </OutlinedButton>
+          </Box>
+        </NavWrapper>
+      </NavBar>
+      <Grid
+        container
+        sx={{
+          height: { xs: "80vh", md: "70vh" },
+        }}
+        width={"100%"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        gap={2}
+      >
+        <Grid
+          item
+          xs={12}
+          md={5}
+          container
+          flexDirection={"column"}
+          alignContent={"center"}
+          justifyContent={"center"}
+          gap={1.2}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
+          <Text variant="h3">
+            <span className="font-semibold"> Hey, </span> I'm Shivam
+          </Text>
+          <Text variant="h4" className="text-2xl">
+            I'm a Full Stack Developer
+          </Text>
+          <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
+            Hire Me
+          </OutlinedButton>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={3}
+          container
+          sx={{
+            justifyContent: { xs: "center", md: "start" },
+          }}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          <ProfilePhoto
+            src={luffy}
+            alt="profile_picture"
+            width={200}
+            height={300}
+          />
+        </Grid>
+      </Grid>
+      <Box
+        display={"flex"}
+        gap={5}
+        p={{ xs: "0px", md: "55px" }}
+        justifyContent={{ xs: "center", md: "start" }}
+      >
+        <SocialButton target="_blank" href={"https://about.gitlab.com/"}>
+          GIT HUB
+        </SocialButton>
+        <SocialButton
           target="_blank"
-          rel="noopener noreferrer"
+          href={"https://www.linkedin.com/in/shivam-singh-84b16823a/"}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          LINKEDIN
+        </SocialButton>
+        <SocialButton
           target="_blank"
-          rel="noopener noreferrer"
+          href={"https://leetcode.com/sivamsingh7762/"}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          LEET CODE
+        </SocialButton>
+      </Box>
+    </Box>
+  );
 }
