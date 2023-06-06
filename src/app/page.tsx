@@ -220,7 +220,7 @@ export default function Home() {
           </Box>
           <Box>
             <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
-              CONTACT ME
+              HIRE ME
             </OutlinedButton>
           </Box>
         </NavWrapper>
