@@ -6,6 +6,7 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import Image from "next/image";
 import luffy from "../profile.png";
 import { keyframes } from "@mui/material/styles";
+import AboutSection from "@/component/about";
 
 const animation = keyframes`0%,
 100% {
@@ -118,10 +119,24 @@ const ProfilePhoto = styled(Image)({
   animation: `${animation} 30s infinite `,
 });
 
+const handleScrollToAbout = () => {
+  const element: HTMLElement | null = document.getElementById("about_section");
+  if (element) {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+};
+
 export default function Home() {
   return (
     <Box>
-      <NavBar>
+      <NavBar
+        sx={{
+          display: { xs: "none", sm: "block" },
+        }}
+      >
         <NavWrapper>
           <Box
             sx={{
@@ -131,12 +146,15 @@ export default function Home() {
             }}
           >
             <NavButton href="#">WELCOME</NavButton>
-            <NavButton href="#"> ABOUT ME </NavButton>
+            <NavButton href="#" onClick={handleScrollToAbout}>
+              {" "}
+              ABOUT ME{" "}
+            </NavButton>
             <NavButton href="#"> CONTACT ME </NavButton>
           </Box>
           <Box>
             <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
-              Hire Me
+              CONTACT Me
             </OutlinedButton>
           </Box>
         </NavWrapper>
@@ -194,7 +212,10 @@ export default function Home() {
         p={{ xs: "0px", md: "55px" }}
         justifyContent={{ xs: "center", md: "start" }}
       >
-        <SocialButton target="_blank" href={"https://about.gitlab.com/"}>
+        <SocialButton
+          target="_blank"
+          href={"https://github.com/zestgeekShivam"}
+        >
           GIT HUB
         </SocialButton>
         <SocialButton
@@ -210,6 +231,7 @@ export default function Home() {
           LEET CODE
         </SocialButton>
       </Box>
+      <AboutSection />
     </Box>
   );
 }
