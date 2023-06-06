@@ -1,5 +1,18 @@
 "use client";
-import { AppBar, Box, Button, Grid, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Drawer,
+  Grid,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Link from "next/link";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
@@ -7,6 +20,9 @@ import Image from "next/image";
 import luffy from "../profile.png";
 import { keyframes } from "@mui/material/styles";
 import AboutSection from "@/component/about";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+type Anchor = "top" | "left" | "bottom" | "right";
 
 const animation = keyframes`0%,
 100% {
@@ -114,6 +130,12 @@ const OutlinedButton = styled(Button)(
   }
 `
 );
+const ListText = styled(ListItemText)(
+  () => `
+  font-weight:300;
+  letter-spacing: 3px;
+`
+);
 
 const ProfilePhoto = styled(Image)({
   animation: `${animation} 30s infinite `,
@@ -130,8 +152,25 @@ const handleScrollToAbout = () => {
 };
 
 export default function Home() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   return (
     <Box>
+      <Box
+        onClick={() => setIsDrawerOpen(true)}
+        sx={{
+          position: "sticky",
+          top: "0px",
+        }}
+      >
+        <MenuIcon
+          sx={{
+            display: { xs: "block", sm: "none" },
+            fontSize: "30px",
+            margin: "10px",
+          }}
+        />
+      </Box>
       <NavBar
         sx={{
           display: { xs: "none", sm: "block" },
@@ -154,7 +193,7 @@ export default function Home() {
           </Box>
           <Box>
             <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
-              CONTACT Me
+              CONTACT ME
             </OutlinedButton>
           </Box>
         </NavWrapper>
@@ -186,7 +225,7 @@ export default function Home() {
             I&apos;m a Full Stack Developer
           </Text>
           <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
-            Hire Me
+            RESUME
           </OutlinedButton>
         </Grid>
         <Grid
@@ -231,6 +270,39 @@ export default function Home() {
           LEET CODE
         </SocialButton>
       </Box>
+      <Drawer
+        sx={{
+          width: "100%",
+        }}
+        anchor={"left"}
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            minWidth: 260,
+            bgcolor: "background.paper",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <nav aria-label="secondary mailbox folders">
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListText primary="Trash" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton component="a" href="#simple-list">
+                  <ListText primary="Spam" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </nav>
+        </Box>
+      </Drawer>
       <AboutSection />
     </Box>
   );
