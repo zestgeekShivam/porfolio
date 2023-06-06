@@ -22,7 +22,6 @@ import { keyframes } from "@mui/material/styles";
 import AboutSection from "@/component/about";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState } from "react";
-type Anchor = "top" | "left" | "bottom" | "right";
 
 const animation = keyframes`0%,
 100% {
@@ -266,6 +265,8 @@ export default function Home() {
             }}
           >
             <ProfilePhoto
+              priority={true}
+              loading="eager"
               src={luffy}
               alt="profile_picture"
               width={200}

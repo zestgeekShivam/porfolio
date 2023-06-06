@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../app/skill.module.css";
 // import luffy from "../../profile.png";
 import javaScript from "../../assets/image/javaScript.jpeg";
@@ -13,6 +13,28 @@ import htmlIMG from "../../assets/image/html5.png";
 import CssIMG from "../../assets/image/css3.png";
 import GraphQl from "../../assets/image/graphql4.png";
 import NestJs from "../../assets/image/nestjs.png";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
+const container = {
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 1,
+      staggerChildren: 0.3,
+    },
+  },
+  hidden: { opacity: 1, scale: 0 },
+};
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
 const RoundedBox = styled(Box)((props) => ({
   height: "fit-content",
   backgroundColor: "#f5f7f7",
@@ -20,10 +42,6 @@ const RoundedBox = styled(Box)((props) => ({
   overflow: "hidden",
   padding: "20px",
   margin: "20px",
-  // [props.theme.breakpoints.up("sm")]: {
-  //   margin: "50px",
-  //   height: "85vh",
-  // },
 }));
 const Heading = styled(Typography)({
   fontWeight: "300",
@@ -94,6 +112,14 @@ const skills = [
 ];
 
 const Skill = () => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
   const getExperienceClassName = (card: string) => {
     if (card === "card-left") {
       return styles["left-card-experience"];
@@ -105,43 +131,52 @@ const Skill = () => {
   };
 
   return (
-    <RoundedBox className={styles["global-style"]}>
-      <Heading ml={2} variant="h3">
-        TECH STACK
-      </Heading>
-      <Box className={styles.container}>
-        {skills?.map((cardDetails, i) => {
-          const { card, image, cardText, experience } = cardDetails || {};
-          return (
-            <Box key={i} className={`${styles[card]}`}>
-              <Box className={styles["card-image"]}>
-                <SkillLogo alt="skill_logo" src={image} />
-              </Box>
-              <Box
-                className={
-                  styles["card-text"] +
-                  " " +
-                  `${
-                    card !== "card-top"
-                      ? styles.rightLeftCardText
-                      : styles.topCardText
-                  }`
-                }
-              >
-                <Typography className={getExperienceClassName(card)}>
-                  {experience}
-                </Typography>
-                <Typography
-                  className={card == "card-top" ? styles.marginT : ""}
+    <motion.ul
+      ref={ref}
+      variants={container}
+      initial="hidden"
+      animate={controls}
+    >
+      <RoundedBox className={styles["global-style"]}>
+        <Heading ml={2} variant="h3">
+          TECH STACK
+        </Heading>
+        <Box className={styles.container}>
+          {skills?.map((cardDetails, i) => {
+            const { card, image, cardText, experience } = cardDetails || {};
+            return (
+              // <motion.li >
+              <motion.li key={i} variants={item} className={`${styles[card]}`}>
+                <Box className={styles["card-image"]}>
+                  <SkillLogo alt="skill_logo" src={image} />
+                </Box>
+                <Box
+                  className={
+                    styles["card-text"] +
+                    " " +
+                    `${
+                      card !== "card-top"
+                        ? styles.rightLeftCardText
+                        : styles.topCardText
+                    }`
+                  }
                 >
-                  {cardText}
-                </Typography>
-              </Box>
-            </Box>
-          );
-        })}
-      </Box>
-    </RoundedBox>
+                  <Typography className={getExperienceClassName(card)}>
+                    {experience}
+                  </Typography>
+                  <Typography
+                    className={card == "card-top" ? styles.marginT : ""}
+                  >
+                    {cardText}
+                  </Typography>
+                </Box>
+              </motion.li>
+              // </motion.li>
+            );
+          })}
+        </Box>
+      </RoundedBox>
+    </motion.ul>
   );
 };
 
