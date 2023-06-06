@@ -63,9 +63,9 @@ const AboutSection = () => {
         justifyContent={"space-around"}
         flexDirection={{ xs: "column", md: "row" }}
       >
-        {educationDetails?.map((details) => {
+        {educationDetails?.map((details, i) => {
           return (
-            <Box width={{ xs: "100%", md: "30%" }}>
+            <Box key={i} width={{ xs: "100%", md: "30%" }}>
               <SubHeading variant="h5">
                 {details.class}
                 {details.class !== "COLLEGE" ? (
