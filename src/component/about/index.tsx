@@ -2,6 +2,7 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Skill from "./Skill";
 
 const RoundedBox = styled(Box)((props) => ({
   height: "fit-content",
@@ -52,34 +53,39 @@ const educationDetails = [
 
 const AboutSection = () => {
   return (
-    <RoundedBox id="about_section">
-      <Heading ml={2} variant="h3">
-        EDUCATION
-      </Heading>
-      <Box
-        height={"90%"}
-        display={"flex"}
-        mt={{ xs: "10px", md: "70px" }}
-        justifyContent={"space-around"}
-        flexDirection={{ xs: "column", md: "row" }}
-      >
-        {educationDetails?.map((details, i) => {
-          return (
-            <Box key={i} width={{ xs: "100%", md: "30%" }}>
-              <SubHeading variant="h5">
-                {details.class}
-                {details.class !== "COLLEGE" ? (
-                  <>
-                    <sup>th</sup> STANDARD{" "}
-                  </>
-                ) : null}
-              </SubHeading>
-              <Text dangerouslySetInnerHTML={{ __html: details.description }} />
-            </Box>
-          );
-        })}
-      </Box>
-    </RoundedBox>
+    <>
+      <RoundedBox id="aboutPage">
+        <Heading ml={2} variant="h3">
+          EDUCATION
+        </Heading>
+        <Box
+          height={"90%"}
+          display={"flex"}
+          mt={{ xs: "10px", md: "70px" }}
+          justifyContent={"space-around"}
+          flexDirection={{ xs: "column", md: "row" }}
+        >
+          {educationDetails?.map((details, i) => {
+            return (
+              <Box key={i} width={{ xs: "100%", md: "30%" }}>
+                <SubHeading variant="h5">
+                  {details.class}
+                  {details.class !== "COLLEGE" ? (
+                    <>
+                      <sup>th</sup> STANDARD{" "}
+                    </>
+                  ) : null}
+                </SubHeading>
+                <Text
+                  dangerouslySetInnerHTML={{ __html: details.description }}
+                />
+              </Box>
+            );
+          })}
+        </Box>
+      </RoundedBox>
+      <Skill />
+    </>
   );
 };
 

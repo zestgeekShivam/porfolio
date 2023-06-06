@@ -21,7 +21,7 @@ import luffy from "../profile.png";
 import { keyframes } from "@mui/material/styles";
 import AboutSection from "@/component/about";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 type Anchor = "top" | "left" | "bottom" | "right";
 
 const animation = keyframes`0%,
@@ -138,11 +138,11 @@ const ListText = styled(ListItemText)(
 );
 
 const ProfilePhoto = styled(Image)({
-  animation: `${animation} 30s infinite `,
+  animation: `${animation} 25s infinite `,
 });
 
 const handleScrollToAbout = () => {
-  const element: HTMLElement | null = document.getElementById("about_section");
+  const element: HTMLElement | null = document.getElementById("aboutPage");
   if (element) {
     element.scrollIntoView({
       behavior: "smooth",
@@ -154,6 +154,27 @@ const handleScrollToAbout = () => {
 export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  useEffect(() => {
+    const sections = document.querySelectorAll("div");
+    const navLi = document.querySelectorAll("a");
+
+    window.onscroll = () => {
+      var current: string | null = null;
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 30) {
+          current = section.getAttribute("id") || current;
+        }
+      });
+      navLi.forEach((li) => {
+        if (li.classList.contains(current as string)) {
+          li.style.color = "black";
+        } else {
+          li.style.color = "#777777";
+        }
+      });
+    };
+  }, []);
   return (
     <Box>
       <Box
@@ -184,8 +205,14 @@ export default function Home() {
               marginLeft: "40px",
             }}
           >
-            <NavButton href="#">WELCOME</NavButton>
-            <NavButton href="#" onClick={handleScrollToAbout}>
+            <NavButton className="welcomePage" href="#">
+              WELCOME
+            </NavButton>
+            <NavButton
+              href="#"
+              className="aboutPage"
+              onClick={handleScrollToAbout}
+            >
               {" "}
               ABOUT ME{" "}
             </NavButton>
@@ -198,78 +225,81 @@ export default function Home() {
           </Box>
         </NavWrapper>
       </NavBar>
-      <Grid
-        container
-        sx={{
-          height: { xs: "80vh", md: "70vh" },
-        }}
-        width={"100%"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        gap={2}
-      >
+      <div id="welcomePage">
         <Grid
-          item
-          xs={12}
-          md={5}
-          container
-          flexDirection={"column"}
-          alignContent={"center"}
-          justifyContent={"center"}
-          gap={1.2}
-        >
-          <Text variant="h3">
-            <span className="font-semibold"> Hey, </span> I&apos;m Shivam
-          </Text>
-          <Text variant="h4" className="text-2xl">
-            I&apos;m a Full Stack Developer
-          </Text>
-          <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
-            RESUME
-          </OutlinedButton>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={3}
           container
           sx={{
-            justifyContent: { xs: "center", md: "start" },
+            height: { xs: "80vh", md: "70vh" },
           }}
+          width={"100%"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          gap={2}
         >
-          <ProfilePhoto
-            src={luffy}
-            alt="profile_picture"
-            width={200}
-            height={300}
-          />
+          <Grid
+            item
+            xs={12}
+            md={5}
+            container
+            flexDirection={"column"}
+            alignContent={"center"}
+            justifyContent={"center"}
+            gap={1.2}
+          >
+            <Text variant="h3">
+              <span className="font-semibold"> Hey, </span> I&apos;m Shivam
+            </Text>
+            <Text variant="h4" className="text-2xl">
+              I&apos;m a Full Stack Developer
+            </Text>
+            <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
+              RESUME
+            </OutlinedButton>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            container
+            sx={{
+              justifyContent: { xs: "center", md: "start" },
+            }}
+          >
+            <ProfilePhoto
+              src={luffy}
+              alt="profile_picture"
+              width={200}
+              height={300}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <Box
-        display={"flex"}
-        gap={5}
-        p={{ xs: "0px", md: "55px" }}
-        justifyContent={{ xs: "center", md: "start" }}
-      >
-        <SocialButton
-          target="_blank"
-          href={"https://github.com/zestgeekShivam"}
+        <Box
+          display={"flex"}
+          gap={5}
+          p={{ xs: "0px", md: "55px" }}
+          justifyContent={{ xs: "center", md: "start" }}
         >
-          GIT HUB
-        </SocialButton>
-        <SocialButton
-          target="_blank"
-          href={"https://www.linkedin.com/in/shivam-singh-84b16823a/"}
-        >
-          LINKEDIN
-        </SocialButton>
-        <SocialButton
-          target="_blank"
-          href={"https://leetcode.com/sivamsingh7762/"}
-        >
-          LEET CODE
-        </SocialButton>
-      </Box>
+          <SocialButton
+            target="_blank"
+            href={"https://github.com/zestgeekShivam"}
+          >
+            GIT HUB
+          </SocialButton>
+          <SocialButton
+            target="_blank"
+            href={"https://www.linkedin.com/in/shivam-singh-84b16823a/"}
+          >
+            LINKEDIN
+          </SocialButton>
+          <SocialButton
+            target="_blank"
+            href={"https://leetcode.com/sivamsingh7762/"}
+          >
+            LEET CODE
+          </SocialButton>
+        </Box>
+      </div>
+
       <Drawer
         sx={{
           width: "100%",
