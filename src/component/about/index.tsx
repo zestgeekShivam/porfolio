@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Skill from "./Skill";
 
@@ -16,10 +16,17 @@ const RoundedBox = styled(Box)((props) => ({
     height: "85vh",
   },
 }));
-const Heading = styled(Typography)({
+const Heading = styled(Typography)((props) => ({
   fontWeight: "300",
   letterSpacing: "5px",
-});
+  marginLeft: "16px",
+  whiteSpace: "nowrap",
+  [props.theme.breakpoints.down(430)]: {
+    marginLeft: "0px",
+    fontSize: "2.6rem",
+    marginBottom: "20px",
+  },
+}));
 const SubHeading = styled(Typography)((props) => ({
   fontWeight: "400",
   letterSpacing: "2px",
@@ -55,9 +62,7 @@ const AboutSection = () => {
   return (
     <>
       <RoundedBox id="aboutPage">
-        <Heading ml={2} variant="h3">
-          EDUCATION
-        </Heading>
+        <Heading variant="h3">EDUCATION</Heading>
         <Box
           height={"90%"}
           display={"flex"}

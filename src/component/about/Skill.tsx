@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect } from "react";
@@ -43,11 +43,17 @@ const RoundedBox = styled(Box)((props) => ({
   padding: "20px",
   margin: "20px",
 }));
-const Heading = styled(Typography)({
+const Heading = styled(Typography)((props) => ({
   fontWeight: "300",
   letterSpacing: "5px",
-  margin: "40px 20px ",
-});
+  marginLeft: "16px",
+  whiteSpace: "nowrap",
+  marginBottom: "20px",
+  [props.theme.breakpoints.down(430)]: {
+    marginLeft: "0px",
+    fontSize: "2.8rem",
+  },
+}));
 const SkillLogo = styled(Image)({
   width: "100%",
   height: "fitContent",
@@ -138,14 +144,11 @@ const Skill = () => {
       animate={controls}
     >
       <RoundedBox className={styles["global-style"]}>
-        <Heading ml={2} variant="h3">
-          TECH STACK
-        </Heading>
+        <Heading variant="h3">TECH STACK</Heading>
         <Box className={styles.container}>
           {skills?.map((cardDetails, i) => {
             const { card, image, cardText, experience } = cardDetails || {};
             return (
-              // <motion.li >
               <motion.li key={i} variants={item} className={`${styles[card]}`}>
                 <Box className={styles["card-image"]}>
                   <SkillLogo alt="skill_logo" src={image} />
@@ -171,7 +174,6 @@ const Skill = () => {
                   </Typography>
                 </Box>
               </motion.li>
-              // </motion.li>
             );
           })}
         </Box>

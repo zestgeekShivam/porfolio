@@ -108,14 +108,25 @@ const SocialButton = styled(Link)(
 `
 );
 
-const Text = styled(Typography)(
-  () => `
-  font-weight:300;
-  letter-spacing:5px;
-  white-space:nowrap;
-
-`
-);
+const Text = styled(Typography)((props) => ({
+  fontWeight: 300,
+  letterSpacing: "5px",
+  whiteSpace: "nowrap",
+  [props.theme.breakpoints.down(450)]: {
+    textAlign: "center",
+    fontSize: "2.5rem",
+  },
+}));
+const SubText = styled(Typography)((props) => ({
+  fontWeight: 300,
+  letterSpacing: "5px",
+  whiteSpace: "nowrap",
+  fontSize: "1.5rem",
+  [props.theme.breakpoints.down(450)]: {
+    textAlign: "center",
+    fontSize: "1.3rem ",
+  },
+}));
 
 const OutlinedButton = styled(Button)(
   () =>
@@ -237,7 +248,7 @@ export default function Home() {
         >
           <Grid
             item
-            xs={12}
+            xs={10}
             md={5}
             container
             flexDirection={"column"}
@@ -248,9 +259,7 @@ export default function Home() {
             <Text variant="h3">
               <span className="font-semibold"> Hey, </span> I&apos;m Shivam
             </Text>
-            <Text variant="h4" className="text-2xl">
-              I&apos;m a Full Stack Developer
-            </Text>
+            <SubText variant="h4">I&apos;m a Full Stack Developer</SubText>
             <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
               RESUME
             </OutlinedButton>
@@ -276,7 +285,7 @@ export default function Home() {
         </Grid>
         <Box
           display={"flex"}
-          gap={5}
+          gap={{ xs: 3, md: 5 }}
           p={{ xs: "0px", md: "55px" }}
           justifyContent={{ xs: "center", md: "start" }}
         >
