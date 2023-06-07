@@ -201,9 +201,32 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .card-image {
     width: 38% !important;
+  }
+
+  .card-top,
+  .card-right,
+  .card-bottom,
+  .card-left {
+    border-radius: 0px !important;
+  }
+
+  .card-top img {
+    border-radius: 0px;
+  }
+
+  .card-right img {
+    border-radius: 0px;
+  }
+
+  .card-bottom img {
+    border-radius: 0px;
+  }
+
+  .card-left img {
+    border-radius: 0px;
   }
 
   .card-text {

@@ -1,19 +1,19 @@
 "use client";
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Skill from "./Skill";
-
+import EducationStyle from "../../app/Educatioon.module.css";
 const RoundedBox = styled(Box)((props) => ({
   height: "fit-content",
   backgroundColor: "#f5f7f7",
   borderRadius: "50px",
-  overflow: "hidden",
+  // overflow: "hidden",
   padding: "20px",
   margin: "20px",
   [props.theme.breakpoints.up("sm")]: {
     margin: "50px",
-    height: "85vh",
+    height: "fit-content",
   },
 }));
 const Heading = styled(Typography)((props) => ({
@@ -36,25 +36,46 @@ const SubHeading = styled(Typography)((props) => ({
   },
 }));
 
-const Text = styled(Typography)({
-  marginTop: "20px",
-  fontWeight: "300px",
-  letterSpacing: "2px",
-});
+const Text = styled(Typography)((props) => ({
+  letterSpacing: "3px",
+  whiteSpace: "nowrap",
+  [props.theme.breakpoints.down(450)]: {
+    textAlign: "center",
+    // fontSize: "2.5rem",
+  },
+}));
+
+const Description = styled(Typography)((props) => ({
+  [props.theme.breakpoints.up(900)]: {
+    fontSize: "12px",
+  },
+  [props.theme.breakpoints.up(1100)]: {
+    fontSize: "13px",
+  },
+}));
 
 const educationDetails = [
   {
     class: "10",
-    description: `In 2022, I successfully completed my <strong>10th</strong> standard at <strong> GA High School Bhagwanpur, Vaishali,</strong/>  with a passing percentage of <strong>56%</strong>. It was a formative year where I gained a solid academic foundation and valuable life skills.`,
+    description: `In 2022, I completed my 10th standard at GA High School Bhagwanpur, Vaishali, with a 56% passing percentage. It provided me a strong academic foundation and valuable life skills.    .`,
+    duration: "2021 - 2022",
   },
   {
-    class: "11-12",
+    class: "11",
     description:
-      "Started <strong>11th</strong> and <strong>12th</strong> standard in 2022 with a focus on <strong> Physics, Chemistry,</strong> and <strong>Math</strong>. Completed 11th standard in 2023 and continued into 12th at <strong>Adarsh Intermediate College</strong>, fueling my passion for STEM subjects.",
+      "Started 11th standard in 2022, focusing on Physics, Chemistry, and Math. Completed 11th in 2023 with a strong foundation",
+    duration: "2022 - 2023",
+  },
+  {
+    class: "12",
+    description:
+      "Continued into 12th at Adarsh Intermediate College, fueling my passion for STEM subjects.",
+    duration: "2023 - 2024",
   },
   {
     class: "COLLEGE",
     description: "PENDING...",
+    duration: "2024 - 2028",
   },
 ];
 
@@ -63,31 +84,43 @@ const AboutSection = () => {
     <>
       <RoundedBox id="aboutPage">
         <Heading variant="h3">EDUCATION</Heading>
-        <Box
-          height={"90%"}
-          display={"flex"}
-          mt={{ xs: "10px", md: "70px" }}
-          justifyContent={"space-around"}
-          flexDirection={{ xs: "column", md: "row" }}
-        >
+        <Grid container justifyContent={"space-around"}>
           {educationDetails?.map((details, i) => {
             return (
-              <Box key={i} width={{ xs: "100%", md: "30%" }}>
-                <SubHeading variant="h5">
-                  {details.class}
-                  {details.class !== "COLLEGE" ? (
-                    <>
-                      <sup>th</sup> STANDARD{" "}
-                    </>
-                  ) : null}
-                </SubHeading>
-                <Text
-                  dangerouslySetInnerHTML={{ __html: details.description }}
-                />
-              </Box>
+              <Grid
+                key={i}
+                item
+                xs={12}
+                md={5.5}
+                // sx={}
+                className={`${EducationStyle.timeline__event}  ${
+                  EducationStyle.fadeInUp
+                } ${EducationStyle[`timeline__event--type${i + 1}`]}`}
+              >
+                <Box className={EducationStyle.timeline__event__date}>
+                  {details.duration}
+                </Box>
+                <Box className={EducationStyle.timeline__event__content}>
+                  <Box className={EducationStyle.timeline__event__title}>
+                    <Text>
+                      {details?.class}
+                      {details.class !== "COLLEGE" ? (
+                        <>
+                          <sup>th</sup> STANDARD{" "}
+                        </>
+                      ) : null}
+                    </Text>
+                  </Box>
+                  <Box className={EducationStyle.timeline__event__description}>
+                    <Description
+                      dangerouslySetInnerHTML={{ __html: details.description }}
+                    />
+                  </Box>
+                </Box>
+              </Grid>
             );
           })}
-        </Box>
+        </Grid>
       </RoundedBox>
       <Skill />
     </>

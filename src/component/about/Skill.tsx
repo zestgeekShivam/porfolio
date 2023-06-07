@@ -21,11 +21,11 @@ const container = {
     opacity: 1,
     scale: 1,
     transition: {
-      delayChildren: 1,
-      staggerChildren: 0.3,
+      delayChildren: 0.5,
+      staggerChildren: 0.2,
     },
   },
-  hidden: { opacity: 1, scale: 0 },
+  hidden: { opacity: 1, scale: 1 },
 };
 const item = {
   hidden: { y: 20, opacity: 0 },
@@ -51,13 +51,12 @@ const Heading = styled(Typography)((props) => ({
   marginBottom: "20px",
   [props.theme.breakpoints.down(430)]: {
     marginLeft: "0px",
-    fontSize: "2.8rem",
+    fontSize: "2.5rem",
   },
 }));
 const SkillLogo = styled(Image)({
-  width: "100%",
-  height: "fitContent",
-  objectFit: "fill",
+  height: "100%",
+  objectFit: "cover",
 });
 
 const skills = [
@@ -119,7 +118,9 @@ const skills = [
 
 const Skill = () => {
   const controls = useAnimation();
-  const [ref, inView] = useInView();
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+  });
   useEffect(() => {
     if (inView) {
       controls.start("visible");
