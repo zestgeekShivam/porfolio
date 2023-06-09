@@ -5,7 +5,6 @@ import { styled } from "@mui/material/styles";
 import Skill from "./Skill";
 import EducationStyle from "../../app/Educatioon.module.css";
 const RoundedBox = styled(Box)((props) => ({
-  height: "fit-content",
   backgroundColor: "#f5f7f7",
   borderRadius: "50px",
   // overflow: "hidden",
@@ -13,7 +12,6 @@ const RoundedBox = styled(Box)((props) => ({
   margin: "20px",
   [props.theme.breakpoints.up("sm")]: {
     margin: "50px",
-    height: "fit-content",
   },
 }));
 const Heading = styled(Typography)((props) => ({
