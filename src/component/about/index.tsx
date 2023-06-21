@@ -82,7 +82,7 @@ const AboutSection = () => {
     <>
       <RoundedBox id="aboutPage">
         <Heading variant="h3">EDUCATION</Heading>
-        <Grid container justifyContent={"space-around"}>
+        <Grid container gap={"20px"} justifyContent={"space-around"}>
           {educationDetails?.map((details, i) => {
             return (
               <Grid
@@ -90,8 +90,6 @@ const AboutSection = () => {
                 item
                 xs={12}
                 md={5.5}
-                gap={"25px"}
-                mt={"10px"}
                 className={`${EducationStyle.timeline__event}  ${
                   EducationStyle.fadeInUp
                 } ${EducationStyle[`timeline__event--type${i + 1}`]}`}
