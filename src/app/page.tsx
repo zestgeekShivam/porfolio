@@ -22,7 +22,7 @@ import { keyframes } from "@mui/material/styles";
 import AboutSection from "@/component/about";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useEffect, useState } from "react";
-
+import welcomePageStyle from "./welcomePage.module.css";
 const animation = keyframes`0%,
 100% {
   border-radius: 30% 70% 70% 30% / 30% 52% 48% 60%;
@@ -164,13 +164,67 @@ const handleScrollToAbout = () => {
   }
 };
 
+const calculateRotate = (elem: HTMLDivElement, to: any): number => {
+  const offset = elem.getBoundingClientRect();
+  const toOffset = to.getBoundingClientRect();
+  const center = {
+    x: offset.left + elem.offsetWidth / 2,
+    y: offset.top + elem.offsetHeight / 2,
+  };
+  const toCenter = {
+    x: toOffset.left + to.offsetWidth / 2,
+    y: toOffset.top + to.offsetHeight / 2,
+  };
+  const radians = Math.atan2(toCenter.x - center.x, toCenter.y - center.y);
+  const degree = radians * (180 / Math.PI) * -1 + 180;
+  return degree;
+};
+
+const handleDOMContentLoaded = () => {
+  const container: HTMLElement | null = document.getElementById(
+    "welcomePageContainer"
+  );
+  const resumeBtn: HTMLElement | null = document.getElementById("resumeBtn");
+  const element: HTMLElement | null = document.querySelector(".btn");
+
+  if (!container || !element) return;
+
+  const cursor: HTMLElement | null = document.getElementById("cursoor");
+  if (!cursor) return;
+
+  cursor.innerHTML =
+    '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28"><polygon fill="#FFFFFF" points="8.2,20.9 8.2,4.9 19.8,16.5 13,16.5 12.6,16.6 "/><polygon fill="#FFFFFF" points="17.3,21.6 13.7,23.1 9,12 12.7,10.5 "/><rect x="12.5" y="13.6" transform="matrix(0.9221 -0.3871 0.3871 0.9221 -5.7605 6.5909)" width="2" height="8"/><polygon points="9.2,7.3 9.2,18.5 12.2,15.6 12.6,15.5 17.4,15.5 "/></svg>';
+  container.appendChild(cursor);
+
+  container.style.cursor = "none";
+
+  const handleMouseMove = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    const isContainer = container.contains(target);
+    cursor.style.display =
+      isContainer && resumeBtn !== target ? "block" : "none";
+    cursor.style.setProperty("--x", e.pageX + "px");
+    cursor.style.setProperty("--y", e.pageY + "px");
+    cursor.style.setProperty(
+      "--r",
+      calculateRotate(cursor as HTMLDivElement, element) + 20 + "deg"
+    );
+  };
+
+  document.addEventListener("mousemove", handleMouseMove);
+
+  return () => {
+    // Clean up the event listener
+    document.removeEventListener("mousemove", handleMouseMove);
+  };
+};
+
 export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   useEffect(() => {
     const sections = document.querySelectorAll("div");
     const navLi = document.querySelectorAll("a");
-
     window.onscroll = () => {
       var current: string | null = "welcomePage";
       sections.forEach((section) => {
@@ -190,6 +244,15 @@ export default function Home() {
           li.style.color = "#777777";
         }
       });
+    };
+
+    if (document.readyState === "complete") {
+      handleDOMContentLoaded();
+    } else {
+      document.addEventListener("DOMContentLoaded", handleDOMContentLoaded);
+    }
+    return () => {
+      document.removeEventListener("DOMContentLoaded", handleDOMContentLoaded);
     };
   }, []);
   return (
@@ -243,7 +306,9 @@ export default function Home() {
         </NavWrapper>
       </NavBar>
       <div id="welcomePage">
+        <div className={welcomePageStyle.cursor} id="cursoor"></div>
         <Grid
+          id="welcomePageContainer"
           container
           sx={{
             height: { xs: "80vh", md: "70vh" },
@@ -267,7 +332,12 @@ export default function Home() {
               <span className="font-semibold"> Hey, </span> I&apos;m Shivam
             </Text>
             <SubText variant="h4">I&apos;m a Full Stack Developer</SubText>
-            <OutlinedButton endIcon={<ArrowRightAltIcon />} variant="outlined">
+            <OutlinedButton
+              id="resumeBtn"
+              className="btn"
+              endIcon={<ArrowRightAltIcon />}
+              variant="outlined"
+            >
               RESUME
             </OutlinedButton>
           </Grid>
