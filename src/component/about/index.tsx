@@ -82,7 +82,7 @@ const AboutSection = () => {
     <>
       <RoundedBox id="aboutPage">
         <Heading variant="h3">EDUCATION</Heading>
-        <Grid container gap={"20px"} justifyContent={"space-around"}>
+        <Grid container gap={"20px"} justifyContent={"space-around"} my={2}>
           {educationDetails?.map((details, i) => {
             return (
               <Grid

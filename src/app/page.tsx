@@ -104,6 +104,9 @@ const SocialButton = styled(Link)(
   letter-spacing:4px;
   &:focus {
     color:#010111;
+  };
+  &:hover {
+    color:#111111 !important ;
   }
 `
 );
@@ -169,11 +172,15 @@ export default function Home() {
     const navLi = document.querySelectorAll("a");
 
     window.onscroll = () => {
-      var current: string | null = null;
+      var current: string | null = "welcomePage";
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
+        const sectionTop: number = section.offsetTop;
         if (pageYOffset >= sectionTop - 30) {
-          current = section.getAttribute("id") || current;
+          if (pageYOffset > 680) {
+            current = "aboutPage";
+          } else {
+            current = section.getAttribute("id") || current;
+          }
         }
       });
       navLi.forEach((li) => {
@@ -219,7 +226,7 @@ export default function Home() {
               WELCOME
             </NavButton>
             <NavButton
-              href="#"
+              href=""
               className="aboutPage"
               onClick={handleScrollToAbout}
             >
